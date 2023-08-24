@@ -1,15 +1,48 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation'
 
 // Dummy data
 const posts = [
   {
-    title: 'Example Title',
-    slug: 'Example Slug',
+    title: 'Lorem Ipsum',
+    slug: 'lorem-ipsum',
     content:
-      'Example Content: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+  },
+  {
+    title: 'Dolor Sit Amet',
+    slug: 'dolor-sit-amet',
+    content:
+      'Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.',
+  },
+  {
+    title: 'Consectetur Adipiscing',
+    slug: 'consectetur-adipiscing',
+    content:
+      'Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.',
+  },
+  {
+    title: 'Integer Nec Odio',
+    slug: 'integer-nec-odio',
+    content:
+      'Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent.',
+  },
+  {
+    title: 'Praesent Libero',
+    slug: 'praesent-libero',
+    content:
+      'Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna.',
   },
 ];
 
 export async function GET() {
+
+  const session = await getServerSession();
+
+  if (!session) {
+    redirect('/api/auth/signin');
+  }
+
   return NextResponse.json(posts);
 }
