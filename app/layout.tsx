@@ -6,6 +6,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 import NavMenu from './components/navmenu/NavMenu'
 
+import AuthProvider from './authProvider';
+
 export const metadata: Metadata = {
   title: 'NextSpace',
   description: 'Myspace clone with basic functionality made with Next.js',
@@ -17,11 +19,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <NavMenu />
-        {children}
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <NavMenu />
+          {children}
+        </body>
+      </html>
+    </AuthProvider>
   )
 }
